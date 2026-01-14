@@ -1,0 +1,23 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider   = "prisma-client" // or `prisma-client-js`
+  output     = "../generated/prisma"
+  engineType = "client" // enable Prisma ORM without Rust
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Modelo de exemplo
+model Example {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("examples")
+}
