@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "🛑 Parando todos os containers"
+docker stop $(docker ps -a -q)
+
 echo "🔍 Verificando containers parados..."
 docker container prune -f
 

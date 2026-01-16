@@ -4,6 +4,9 @@ echo "Removing container if exists..."
 docker rm -f db-postgres-local
 docker rm -f app-nestjs-local
 
+echo "Creating volume..."
+docker volume create postgres_data
+
 echo "Running database..."
 docker run -d \
   --name db-postgres-local \
@@ -12,6 +15,7 @@ docker run -d \
   -e POSTGRES_PASSWORD=postgres \
   -e POSTGRES_DB=architecture \
   -p 5432:5432 \
+  -v postgres_data:/var/lib/postgresql/data
   postgres:16-alpine
 
 echo "Running backend..."
