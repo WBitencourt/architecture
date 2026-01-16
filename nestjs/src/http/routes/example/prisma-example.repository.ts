@@ -32,7 +32,7 @@ export class ExampleRepository {
     });
   }
 
-  async findExampleByEmail({
+  async findByEmail({
     email,
   }: FindExampleByEmailParams): Promise<Example | null> {
     return this.orm.example.findUnique({

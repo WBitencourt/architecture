@@ -4,8 +4,8 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
-  Put,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ExampleService } from '@/http/routes/example/example.service';
@@ -35,7 +35,7 @@ export class ExampleController {
     });
   }
 
-  @Put(':id')
+  @Patch(':id')
   async update(
     @Param() param: UpdateExampleParamDto,
     @Body() body: UpdateExampleBodyDto,

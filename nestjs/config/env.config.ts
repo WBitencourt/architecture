@@ -9,6 +9,8 @@ const envSchema = z.object({
   PORT: z.coerce.number().default(3000).describe('Port to run the server'),
 });
 
+console.log(envSchema.safeParse(process.env));
+
 export type Env = z.infer<typeof envSchema>;
 
 // Isso vai lançar um erro e parar o app se faltar alguma variável crítica

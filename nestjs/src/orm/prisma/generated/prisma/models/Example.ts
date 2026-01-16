@@ -150,7 +150,7 @@ export type ExampleGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type ExampleGroupByOutputType = {
   id: string
   email: string
-  name: string | null
+  name: string
   createdAt: Date
   updatedAt: Date
   _count: ExampleCountAggregateOutputType | null
@@ -179,7 +179,7 @@ export type ExampleWhereInput = {
   NOT?: Prisma.ExampleWhereInput | Prisma.ExampleWhereInput[]
   id?: Prisma.StringFilter<"Example"> | string
   email?: Prisma.StringFilter<"Example"> | string
-  name?: Prisma.StringNullableFilter<"Example"> | string | null
+  name?: Prisma.StringFilter<"Example"> | string
   createdAt?: Prisma.DateTimeFilter<"Example"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Example"> | Date | string
 }
@@ -187,7 +187,7 @@ export type ExampleWhereInput = {
 export type ExampleOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  name?: Prisma.SortOrderInput | Prisma.SortOrder
+  name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -198,7 +198,7 @@ export type ExampleWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ExampleWhereInput | Prisma.ExampleWhereInput[]
   OR?: Prisma.ExampleWhereInput[]
   NOT?: Prisma.ExampleWhereInput | Prisma.ExampleWhereInput[]
-  name?: Prisma.StringNullableFilter<"Example"> | string | null
+  name?: Prisma.StringFilter<"Example"> | string
   createdAt?: Prisma.DateTimeFilter<"Example"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Example"> | Date | string
 }, "id" | "email">
@@ -206,7 +206,7 @@ export type ExampleWhereUniqueInput = Prisma.AtLeast<{
 export type ExampleOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  name?: Prisma.SortOrderInput | Prisma.SortOrder
+  name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ExampleCountOrderByAggregateInput
@@ -220,7 +220,7 @@ export type ExampleScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ExampleScalarWhereWithAggregatesInput | Prisma.ExampleScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Example"> | string
   email?: Prisma.StringWithAggregatesFilter<"Example"> | string
-  name?: Prisma.StringNullableWithAggregatesFilter<"Example"> | string | null
+  name?: Prisma.StringWithAggregatesFilter<"Example"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Example"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Example"> | Date | string
 }
@@ -228,7 +228,7 @@ export type ExampleScalarWhereWithAggregatesInput = {
 export type ExampleCreateInput = {
   id?: string
   email: string
-  name?: string | null
+  name: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -236,7 +236,7 @@ export type ExampleCreateInput = {
 export type ExampleUncheckedCreateInput = {
   id?: string
   email: string
-  name?: string | null
+  name: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -244,7 +244,7 @@ export type ExampleUncheckedCreateInput = {
 export type ExampleUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -252,7 +252,7 @@ export type ExampleUpdateInput = {
 export type ExampleUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -260,7 +260,7 @@ export type ExampleUncheckedUpdateInput = {
 export type ExampleCreateManyInput = {
   id?: string
   email: string
-  name?: string | null
+  name: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -268,7 +268,7 @@ export type ExampleCreateManyInput = {
 export type ExampleUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -276,7 +276,7 @@ export type ExampleUpdateManyMutationInput = {
 export type ExampleUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -307,10 +307,6 @@ export type ExampleMinOrderByAggregateInput = {
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -359,7 +355,7 @@ export type $ExamplePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     email: string
-    name: string | null
+    name: string
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["example"]>

@@ -39,6 +39,17 @@ export class ExampleService {
 
   async create({ name, email }: CreateExampleParams) {
     try {
+      const existingRecord = await this.exampleRepository.findByEmail({
+        email,
+      });
+
+      if (existingRecord) {
+        throw new HttpException(
+          `Record with e-mail "${email}" already exists`,
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
       const createdData = await this.exampleRepository.create({
         name,
         email,
@@ -58,12 +69,6 @@ export class ExampleService {
 
   async update({ id, data }: UpdateExampleParams) {
     try {
-      const idNumber = Number(id);
-
-      if (isNaN(idNumber)) {
-        throw new HttpException('ID must be a number!', HttpStatus.BAD_REQUEST);
-      }
-
       const existingRecord = await this.exampleRepository.findById({
         id,
       });
@@ -93,17 +98,11 @@ export class ExampleService {
   }
 
   async delete({ id }: DeleteExampleParams) {
-    const idNumber = Number(id);
-
-    if (isNaN(idNumber)) {
-      throw new HttpException('ID must be a number!', HttpStatus.BAD_REQUEST);
-    }
-
     const existingRecord = await this.exampleRepository.findById({ id });
 
     if (!existingRecord) {
       throw new HttpException(
-        `Record with ID ${idNumber} not found`,
+        `Record with ID ${id} not found`,
         HttpStatus.BAD_REQUEST,
       );
     }
