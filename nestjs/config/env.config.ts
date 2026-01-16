@@ -7,6 +7,10 @@ const envSchema = z.object({
     .default('development'),
   DATABASE_URL: z.string('DATABASE_URL is required'),
   PORT: z.coerce.number().default(3000).describe('Port to run the server'),
+  HOSTNAME: z
+    .string()
+    .default('0.0.0.0')
+    .describe('Hostname to run the server'),
 });
 
 console.log(envSchema.safeParse(process.env));

@@ -1,4 +1,23 @@
 services:
+  app-nestjs:
+    image: app-nestjs-image:latest
+    container_name: app-nestjs
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3333:3000'
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db-postgres:5432/architecture
+      PORT: 3000
+      HOSTNAME: ${HOSTNAME}
+      NODE_ENV: ${NODE_ENV}
+    networks:
+      - nestjs-network
+    depends_on:
+      - db-postgres
+
   db-postgres:
     image: postgres:16-alpine
     container_name: db-postgres
