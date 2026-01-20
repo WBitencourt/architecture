@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { OrmService } from '@/orm/orm.service';
+import { DatabaseService } from '@/database/database.service';
 import {
   CreateExampleParams,
   DeleteExampleParams,
@@ -11,10 +11,12 @@ import {
 
 @Injectable()
 export class ExampleRepository {
-  constructor(private readonly orm: OrmService) {}
+  constructor(private readonly database: DatabaseService) {
+    // Dependency injection only
+  }
 
   async create({ name, email }: CreateExampleParams): Promise<Example> {
-    return await this.orm.example.create({
+    return await this.database.example.create({
       data: {
         name,
         email,
@@ -23,11 +25,11 @@ export class ExampleRepository {
   }
 
   async findAll(): Promise<Example[]> {
-    return this.orm.example.findMany();
+    return this.database.example.findMany();
   }
 
   async findById({ id }: FindExampleByIdParams): Promise<Example | null> {
-    return this.orm.example.findUnique({
+    return this.database.example.findUnique({
       where: { id },
     });
   }
@@ -35,20 +37,20 @@ export class ExampleRepository {
   async findByEmail({
     email,
   }: FindExampleByEmailParams): Promise<Example | null> {
-    return this.orm.example.findUnique({
+    return this.database.example.findUnique({
       where: { email },
     });
   }
 
   async update({ id, data }: UpdateExampleParams): Promise<Example> {
-    return this.orm.example.update({
+    return this.database.example.update({
       where: { id },
       data,
     });
   }
 
   async deleteById({ id }: DeleteExampleParams): Promise<Example> {
-    return this.orm.example.delete({
+    return this.database.example.delete({
       where: { id },
     });
   }

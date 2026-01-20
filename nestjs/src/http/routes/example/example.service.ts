@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { ExampleRepository } from './prisma-example.repository';
+import { ExampleRepository } from '@/database/repositories/prisma-example.repository';
 
 interface CreateExampleParams {
   name: string;
