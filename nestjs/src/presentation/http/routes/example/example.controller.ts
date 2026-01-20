@@ -8,14 +8,14 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { ExampleService } from '@/http/routes/example/example.service';
-import { DeleteExampleDto } from '@/http/routes/example/dto/delete-example.dto';
+import { ExampleService } from '@/presentation/http/routes/example/example.service';
+import { DeleteExampleDto } from '@/presentation/http/routes/example/dto/delete-example.dto';
 import { CreateExampleBodyDto } from './dto/create-example.dto';
 
 import {
   UpdateExampleBodyDto,
   UpdateExampleParamDto,
-} from '@/http/routes/example/dto/update-example.dto';
+} from '@/presentation/http/routes/example/dto/update-example.dto';
 
 @ApiTags('Example')
 @Controller('example')

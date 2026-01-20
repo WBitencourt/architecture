@@ -30,4 +30,4 @@ ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 EXPOSE 3333
 
-CMD ["node", "dist/src/main"]
+CMD ["node", "dist/src/presentation/main"]
