@@ -14,6 +14,7 @@ WORKDIR /app
 COPY --from=deps /app/package.json /app/pnpm-lock.yaml ./
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+RUN pnpm prisma generate
 RUN pnpm run build
 RUN pnpm prune --prod
 
@@ -25,7 +26,7 @@ RUN adduser --system --uid 1001 app
 COPY --from=builder --chown=app:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=app:nodejs /app/package.json ./package.json
 COPY --from=builder --chown=app:nodejs /app/dist ./dist
-ENV NODE_ENV=production
+
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 EXPOSE 3333

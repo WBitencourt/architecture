@@ -23,6 +23,7 @@ docker run -d \
   --name app-nestjs-local \
   -t \
   -p 3333:3000 \
+  -e NODE_ENV=development \
   -e DATABASE_URL="postgresql://postgres:postgres@db-postgres-local:5432/architecture" \
   app-nestjs-local-image:latest
 
