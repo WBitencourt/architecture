@@ -11,8 +11,8 @@ services:
     environment:
       DATABASE_URL: postgresql://postgres:postgres@db-postgres:5432/architecture
       PORT: 3000
-      HOSTNAME: ${HOSTNAME}
-      NODE_ENV: ${NODE_ENV}
+      HOSTNAME: ${HOSTNAME} # from file .env
+      NODE_ENV: development # from file .env
     networks:
       - nestjs-network
     depends_on:
