@@ -1,3 +1,4 @@
+import 'reflect-metadata'; //for type-orm
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@/presentation/http/routes/app.module';
 import { env } from '@/config/env.config';
