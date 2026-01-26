@@ -4,16 +4,15 @@ import {
   CreateExampleParams,
   DeleteExampleParams,
   Example,
+  ExampleRepository,
   FindExampleByEmailParams,
   FindExampleByIdParams,
   UpdateExampleParams,
 } from './example.repository';
 
 @Injectable()
-export class ExampleRepository {
-  constructor(private readonly database: DatabaseService) {
-    // Dependency injection only
-  }
+export class PrismaExampleRepository implements ExampleRepository {
+  constructor(private readonly database: DatabaseService) {}
 
   async create({ name, email }: CreateExampleParams): Promise<Example> {
     return await this.database.example.create({

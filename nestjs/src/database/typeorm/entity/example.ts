@@ -1,12 +1,6 @@
-import {
-  Entity,
-  PrimaryColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Entity, PrimaryColumn, Column } from 'typeorm';
 
-@Entity()
+@Entity('examples')
 export class Example {
   @PrimaryColumn('uuid')
   id: string;
@@ -17,9 +11,9 @@ export class Example {
   @Column()
   name: string;
 
-  @CreateDateColumn({ type: 'timestamptz' })
+  @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamptz' })
+  @Column({ type: 'timestamptz' })
   updatedAt: Date;
 }

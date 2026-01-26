@@ -29,3 +29,14 @@ export interface UpdateExampleParams {
 export interface FindExampleByIdParams {
   id: string;
 }
+
+export abstract class ExampleRepository {
+  abstract create(params: CreateExampleParams): Promise<Example>;
+  abstract findAll(): Promise<Example[]>;
+  abstract findById(params: FindExampleByIdParams): Promise<Example | null>;
+  abstract findByEmail(
+    params: FindExampleByEmailParams,
+  ): Promise<Example | null>;
+  abstract update(params: UpdateExampleParams): Promise<Example>;
+  abstract deleteById(params: DeleteExampleParams): Promise<Example>;
+}

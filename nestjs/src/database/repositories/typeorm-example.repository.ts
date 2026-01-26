@@ -6,24 +6,26 @@ import {
   CreateExampleParams,
   DeleteExampleParams,
   Example,
+  ExampleRepository,
   FindExampleByEmailParams,
   FindExampleByIdParams,
   UpdateExampleParams,
 } from './example.repository';
+import { randomUUID } from 'crypto';
 
 @Injectable()
-export class ExampleRepository {
-  constructor(private readonly database: DatabaseService) {
-    // Dependency injection only
-  }
+export class TypeOrmExampleRepository implements ExampleRepository {
+  constructor(private readonly database: DatabaseService) {}
 
   async create({ name, email }: CreateExampleParams): Promise<Example> {
     const exampleRepository =
       this.database.dataSource.getRepository(ExampleEntity);
 
     const example = exampleRepository.create({
+      id: randomUUID(),
       name,
       email,
+      updatedAt: new Date(),
     });
 
     console.log('exampleRepository-new-name', example.name);
