@@ -1,19 +1,24 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import { Column, Entity, Index } from 'typeorm';
 
-@Entity('examples')
-export class Example {
-  @PrimaryColumn('uuid')
+@Index('examples_email_key', ['email'], { unique: true })
+@Index('examples_pkey', ['id'], { unique: true })
+@Entity('examples', { schema: 'public' })
+export class Examples {
+  @Column('text', { primary: true, name: 'id' })
   id: string;
 
-  @Column({ unique: true })
+  @Column('text', { name: 'email' })
   email: string;
 
-  @Column()
+  @Column('text', { name: 'name' })
   name: string;
 
-  @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  @Column('timestamp without time zone', {
+    name: 'createdAt',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   createdAt: Date;
 
-  @Column({ type: 'timestamptz' })
+  @Column('timestamp without time zone', { name: 'updatedAt' })
   updatedAt: Date;
 }

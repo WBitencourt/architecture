@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { Example } from './entity/example';
+import { Examples } from './entity/example';
 //import { env } from '@/config/env.config';
 
 export const AppDataSource = new DataSource({
@@ -12,7 +12,7 @@ export const AppDataSource = new DataSource({
   database: 'architecture',
   synchronize: false, //env.NODE_ENV === 'test',
   logging: true,
-  entities: [Example],
-  migrations: [],
+  entities: [Examples],
+  migrations: ['src/database/typeorm/migrations/*.ts'],
   subscribers: [],
 });
