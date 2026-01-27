@@ -9,7 +9,7 @@
     "prisma:pull": "prisma db pull", 
     "prisma:migrate:dev": "prisma migrate dev", 
     "prisma:migrate:prod": "prisma migrate deploy",
-    "typeorm:pull": "npx typeorm-model-generator -h localhost -d architecture -u postgres -x postgres -e postgres", 
+    "typeorm:pull": "npx typeorm-model-generator -h localhost -d architecture -u postgres -x postgres -e postgres -o ./src/database/typeorm/pulled/", 
     "typeorm:generate": "npx typeorm-ts-node-commonjs migration:generate src/database/typeorm/migrations/migrations -d ./src/database/typeorm/data-source.ts", 
     "typeorm:migrate": "npx typeorm-ts-node-commonjs migration:run -d ./src/database/typeorm/data-source.ts",
     "build": "nest build",

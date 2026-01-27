@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from '@/database/typeorm-database.service';
-import { Examples as ExampleEntity } from '../typeorm/entity/example';
+import { Examples as ExampleEntity } from '../typeorm/entities/example';
 
 import {
   CreateExampleParams,
