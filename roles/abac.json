@@ -1,0 +1,7 @@
+
+{
+  "action": "update",
+  "subject": "user",
+  "fields": ["name", "email", "address"],
+  "conditions": { "country": "Brazil" }
+}
