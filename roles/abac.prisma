@@ -1,0 +1,47 @@
+// 1. O Usuário
+model User {
+  id    String @id @default(uuid())
+  name  String
+  email String @unique
+
+  // Relacionamento N:N com Roles (via tabela pivot implícita ou explícita)
+  // O Prisma gerencia a tabela pivot automaticamente se usarmos o array
+  roles Role[]
+
+  // Relacionamento 1:N com permissões exclusivas (o "usuário de confiança")
+  customPermissions UserPermission[]
+}
+
+// 2. O Cargo (Ex: RH, Suporte)
+model Role {
+  id   String @id @default(uuid())
+  name String @unique // ex: "RH", "SUPORTE"
+
+  // Relacionamento N:N com Usuários
+  users User[]
+
+  // Relacionamento 1:N com as permissões padrão deste cargo
+  permissions RolePermission[]
+}
+
+// 3. Permissões de uma Role (Padrão)
+model RolePermission {
+  id         String @id @default(uuid())
+  action     String // ex: "read", "create"
+  subject    String // ex: "folha_pagamento", "chamado"
+  conditions Json? // ex: { "departamento": "TI" }
+
+  role   Role   @relation(fields: [roleId], references: [id])
+  roleId String
+}
+
+// 4. Permissões do Usuário (Customizadas/Exceções)
+model UserPermission {
+  id         String @id @default(uuid())
+  action     String // ex: "read"
+  subject    String // ex: "agenda_diretoria"
+  conditions Json? // ex: { "nivel_acesso": "confidencial" }
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+}
