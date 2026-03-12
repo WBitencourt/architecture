@@ -1,7 +1,18 @@
-
 {
-  "action": "update",
-  "subject": "user",
-  "fields": ["name", "email", "address"],
-  "conditions": { "country": "Brazil" }
+  "version": "2012-10-17",
+  "statement": [
+    {
+      "effect": "allow",
+      "action": "update",
+      "subject": "user",
+      "fields": ["name", "email", "address"],
+      "conditions": { "country": "Brazil" }
+    },
+    {
+      "effect": "deny",
+      "action": "update",
+      "subject": "user",
+      "conditions": { "role": "admin" }
+    }
+  ]
 }

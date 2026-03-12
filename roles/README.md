@@ -1,22 +1,66 @@
-# 1. ABAC (Attribute-Based Access Control)
+# 1. RBAC (Role-Based Access Control)
 
-Diferente do RBAC (onde você apenas diz "Admin pode tudo"), no ABAC você usa atributos do sujeito (quem), 
-do objeto (o quê) e do ambiente (contexto) para decidir o acesso.
+Access is based on **role**: the system only sees "this user has role X" and "role X has permissions Y". There are no context or resource-attribute rules — just a fixed list of permissions (e.g. `"user:create"`, `"curso:admin"`). Simple, but not very flexible for rules like "can only edit their own record".
 
-"permissions": ["user:create", "user:update", "curso:admin"]
+# 2. ABAC (Attribute-Based Access Control)
 
-# 2. Anatomia do JSON (Terminologia Técnica)
+Access is based on **attributes**: the decision uses who the user is, what the resource is, and context (country, time, resource status, etc.). Instead of "Admin can do everything", you define rules like "can *update* *user* on fields *name, email* **if** *country = Brazil*". More expressive than RBAC and aligned with the AWS IAM policy model.
 
-- **Action (Ação):** O "verbo". Define a operação (ex: update, manage, read).
-- **Subject (Assunto/Recurso):** O "substantivo". Define em qual entidade a ação atua.
-- **Fields (Camadas/Atributos):** Também chamado de Fine-grained access (acesso fino). Define a granularidade da permissão em nível de coluna/propriedade.
-- **Conditions (Condições/Predicados):** Define o Escopo. É onde a lógica de negócio entra (ex: "só se o status for aberto").
+# 2.1. Anatomy of the JSON (Technical Terminology)
+- **Effect:** "Allow" or "Deny". Defines whether the policy grants or denies access.
+- **Action:** The "verb". Defines the operation (e.g. update, manage, read).
+- **Subject (Resource):** The "noun". Defines which entity the action applies to.
+- **Fields:** Also called fine-grained access. Defines permission granularity at the column/property level.
+- **Conditions:** Defines scope. Where business logic lives (e.g. "only if status is open").
 
-# Curiosidade: O padrão AWS IAM
-Se você olhar as políticas do AWS IAM, verá que elas seguem exatamente essa lógica, apenas com nomes de chaves diferentes:
+# 3. Note: The AWS IAM pattern
+If you look at AWS IAM policies, they follow this same logic, with different key names:
 
-Action -> Igual ao seu.
-q   
-Resource -> O seu subject.
+| AWS           | This JSON   |
+| ------------- | ----------- |
+| Version       | version     |
+| Statement     | statement  |
+| Effect        | effect     |
+| Action        | action     |
+| Resource      | subject    |
+| Condition     | conditions |
 
-Condition -> O seu conditions.
+**Convention:** In this project we use *lowercase* keys (`version`, `statement`, `effect`) in the JSON; AWS IAM uses PascalCase in its API. The `effect` values are `"allow"` or `"deny"` (lowercase).
+
+**AWS IAM** example (PascalCase):
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:PutObject"],
+      "Resource": "arn:aws:s3:::meu-bucket-exemplo/*"
+    }
+  ]
+}
+```
+
+**Our ABAC** example (lowercase, with subject/fields/conditions):
+
+```json
+{
+  "version": "2012-10-17",
+  "statement": [
+    {
+      "effect": "allow",
+      "action": "update",
+      "subject": "user",
+      "fields": ["name", "email"],
+      "conditions": { "country": "Brazil" }
+    },
+    {
+      "effect": "deny",
+      "action": "update",
+      "subject": "user",
+      "conditions": { "role": "admin" }
+    }
+  ]
+}
+```

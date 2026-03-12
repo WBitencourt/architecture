@@ -24,23 +24,27 @@ model Role {
   permissions RolePermission[]
 }
 
-// 3. Permissões de uma Role (Padrão)
+// 3. Permissões de uma Role (Padrão) — formato alinhado ao ABAC/IAM (effect, action, subject, fields, conditions)
 model RolePermission {
   id         String @id @default(uuid())
-  action     String // ex: "read", "create"
-  subject    String // ex: "folha_pagamento", "chamado"
-  conditions Json? // ex: { "departamento": "TI" }
+  effect     String @default("allow") // "allow" | "deny"
+  action     String // ex: "read", "create", "update"
+  subject    String // ex: "folha_pagamento", "chamado", "user"
+  fields     Json?  // ex: ["name", "email", "address"] — acesso fino; null = todos
+  conditions Json?  // ex: { "departamento": "TI" }
 
   role   Role   @relation(fields: [roleId], references: [id])
   roleId String
 }
 
-// 4. Permissões do Usuário (Customizadas/Exceções)
+// 4. Permissões do Usuário (Customizadas/Exceções) — mesmo formato ABAC/IAM
 model UserPermission {
   id         String @id @default(uuid())
-  action     String // ex: "read"
-  subject    String // ex: "agenda_diretoria"
-  conditions Json? // ex: { "nivel_acesso": "confidencial" }
+  effect     String @default("allow") // "allow" | "deny"
+  action     String // ex: "read", "update"
+  subject    String // ex: "agenda_diretoria", "user"
+  fields     Json?  // ex: ["name", "email"] — acesso fino; null = todos
+  conditions Json?  // ex: { "nivel_acesso": "confidencial" }
 
   user   User   @relation(fields: [userId], references: [id])
   userId String
