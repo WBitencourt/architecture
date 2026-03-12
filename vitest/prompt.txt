@@ -1,0 +1,8 @@
+REGRAS IMPORTANTES
+- Sempre use vi.clearAllMocks() no beforeEach de cada describe principal
+- Nunca repita seletores - crie funções getElement para cada campo
+- Use faker para dados dinâmicos - nunca use dados hardcoded repetitivos
+- Funções factory devem ser tipadas - sempre retorne o tipo correto
+- Agrupe testes por fluxo/workflow - não por tipo de teste
+- Use funções parametrizadas para cenários similares com resultados diferentes
+- Mantenha os testes independentes - cada teste deve funcionar isoladamente
