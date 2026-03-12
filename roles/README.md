@@ -13,7 +13,24 @@ Access is based on **attributes**: the decision uses who the user is, what the r
 - **Fields:** Also called fine-grained access. Defines permission granularity at the column/property level.
 - **Conditions:** Defines scope. Where business logic lives (e.g. "only if status is open").
 
-# 3. Note: The AWS IAM pattern
+# 3. Database
+
+Schema: `roles/abac.prisma`. Summary of relationships so you can quickly recall how things connect.
+
+| Model | Relationship | With | Meaning |
+| ----- | ------------- | ----- | -------- |
+| **User** | N:N | **Role** | A user can have several roles (e.g. RH, Suporte); a role can be assigned to many users. Prisma uses an implicit pivot table. |
+| **User** | 1:N | **UserPermission** | A user can have many custom permission statements (overrides/exceptions per user). |
+| **Role** | 1:N | **RolePermission** | A role has many permission statements (the default ABAC policy for that role). |
+
+**Flow when resolving access:**  
+1. Get the user’s **roles** and collect all **RolePermission** rows for those roles.  
+2. Add the user’s **UserPermission** rows (custom/override).  
+3. Merge and evaluate (e.g. deny overrides allow, conditions and fields apply).  
+
+So: **User ↔ Role** (many-to-many), **Role → RolePermission** (one-to-many), **User → UserPermission** (one-to-many). Role permissions are the base; user permissions extend or override them.
+
+# 4. Note: The AWS IAM pattern
 If you look at AWS IAM policies, they follow this same logic, with different key names:
 
 | AWS           | This JSON   |
