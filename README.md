@@ -1,3 +1,3 @@
-# 👷🏻‍♂️ Architecture
+# 👷🏻‍♂️ Boilerplate
 
-📝 Repository to remember the good architecture, practices and code.
+📝 Repository to keep good architecture, practices and reusable code as a starting point for new projects.
